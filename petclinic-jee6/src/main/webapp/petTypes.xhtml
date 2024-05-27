@@ -1,0 +1,35 @@
+    <ui:composition template="./template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org">
+
+        <ui:define name="content">
+            <h2 id="petTypes">#{msg.petTypes}</h2>
+            <h:form id="petTypesForm">
+                <h:dataTable id="petTypesTable" value="#{petTypeController.petTypes}" var="petType" styleClass="table table-striped table-hover">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.name}"/>
+                        </f:facet>
+                        <h:outputText id="name" value="#{petType.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.edit}"/>
+                        </f:facet>
+                        <h:commandLink id="edit" action="#{petTypeController.getEditForm(petType.id)}"><i class="icon-edit"/></h:commandLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.delete}"/>
+                        </f:facet>
+                        <h:commandLink id="delete" action="#{petTypeController.delete(petType.id)}"><i class="icon-trash"/></h:commandLink>
+                    </h:column>
+                </h:dataTable>
+                <i class="icon-plus-sign" /><h:commandLink id="getNewPetTypeForm" action="#{petTypeController.getNewPetTypeForm}"><h:outputText value="#{msg.addNewPetType}"/></h:commandLink>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
