@@ -18,6 +18,10 @@ Hint: Tests removed because of issues with the dependencies and the build
 7. Open http://localhost:8080/jee6-petclinic-1.0-SNAPSHOT/ in a browser
 
 ## Run with Docker
+Prerequisites: 
+- Make sure you have Git LFS installed (https://git-lfs.com/)
+- Files need to be checked out with the LF line ending (Linux) instead of CRLF (Windows)
+
 1. Build:
 ```bash
 docker build -t petclinic-jee6 .
