@@ -7,3 +7,7 @@ target/
 org.woehlke.jee6.*/
 x.txt
 x*.txt
+*.zip
+*.rpm
+petclinic-jee6/mvnw
+.vscode/settings.json
