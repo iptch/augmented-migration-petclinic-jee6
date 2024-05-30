@@ -6,6 +6,7 @@ The Dockerfile is based on https://github.com/ovanekem/docker-jboss-7.1.1.final
 Hint: Tests removed because of issues with the dependencies and the build
 
 ## Run locally
+Steps:
 1. Download JBoss 7.1.1.Final (jboss-as-7.1.1.Final.zip) from http://www.jboss.org/jbossas/downloads
 2. Download JDK 7u79 from https://www.oracle.com/java/technologies/javase/javase7-archive-downloads.html
 3. Install the JDK and set the JAVA_HOME environment variable to the installation directory
@@ -23,6 +24,7 @@ Prerequisites:
 - Make sure you have Git LFS installed (https://git-lfs.com/)
 - Files need to be checked out with the LF line ending (Linux) instead of CRLF (Windows)
 
+Steps:
 1. Download jboss-as-7.1.1.Final.zip from http://www.jboss.org/jbossas/downloads and place it in the same folder as the Dockerfile
 2. Download jdk-7u79-linux-x64.rpm from https://www.oracle.com/java/technologies/javase/javase7-archive-downloads.html and place it in the same folder as the Dockerfile (you'll need an Oracle Account)
 3. Build:
