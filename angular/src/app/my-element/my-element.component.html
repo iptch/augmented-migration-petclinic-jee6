@@ -1,1 +1,26 @@
-<p>my-element works! It really works!</p>
+<div>
+  <h1>{{ msg.welcome }}</h1>
+  <h4>{{ msg.firstSteps }}</h4>
+  <ul>
+    <li>{{ msg.myElement }}</li>
+    <li>{{ msg.petTypes }}</li>
+    <li>{{ msg.specialties }}</li>
+    <li>{{ msg.veterinarian }}</li>
+    <li>{{ msg.owner }}</li>
+  </ul>
+  <h4>{{ msg.sourceCode }}</h4>
+  <ul>
+    <li>
+      Github:
+      <a href="{{ msg.github }}">{{ msg.github }}</a>
+    </li>
+    <li>
+      Project Page:
+      <a href="{{ msg.projectPage }}">{{ msg.projectPage }}</a>
+    </li>
+    <li>
+      Bugs:
+      <a href="{{ msg.bugs }}">{{ msg.bugs }}</a>
+    </li>
+  </ul>
+</div>
