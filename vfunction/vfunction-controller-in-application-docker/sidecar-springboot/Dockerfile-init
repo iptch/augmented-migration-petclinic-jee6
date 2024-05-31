@@ -1,0 +1,40 @@
+FROM centos:7
+MAINTAINER Raviv Halivni
+
+ARG NAME
+ARG VERSION
+ARG RELEASE
+
+ENV SUMMARY="SpringBoot application wrapper for vFunction Controller."          \
+    DESCRIPTION="SpringBoot application wrapper for vFunction Controller."
+
+LABEL summary="$SUMMARY"                                \
+      description="$DESCRIPTION"                        \
+      io.k8s.description="$DESCRIPTION"                 \
+      name="vfunction/$NAME"                            \
+      vendor="vFunction"                                \
+      version="$VERSION"                                \
+      release="$RELEASE"                                \
+      maintainer="vfunction.com <raviv@vfunction.com>"
+
+RUN yum install bash -y                                                                     && \
+    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical       && \
+    adduser -l -u "1500" "appuser"
+
+COPY data/controller/vfunction-controller-sudo-less-installation*.tgz /tmp/vfunction-controller-sudo-less-installation.tgz
+COPY config/*.yaml /tmp/
+COPY files/startup-init.sh /usr/bin/startup-init.sh
+
+RUN cd /tmp && tar zxvf /tmp/vfunction-controller-sudo-less-installation.tgz                          && \
+    rm -rf /tmp/vfunction-controller-sudo-less-installation.tgz                                       && \
+    mv /tmp/installation.yaml /tmp/vfunction/etc/sysconfig/vfunction/installation/instances/default-java/  && \
+    mv /tmp/global.yaml /tmp/vfunction/etc/sysconfig/vfunction/installation/                          && \
+    bash /tmp/vfunction/opt/vfunction/controller-installation/install.sh -i default-java -n                && \
+    chmod +x /usr/bin/startup-init.sh                                                                 && \
+    chmod -R 777 /usr/bin/ /tmp/vfunction                                                             && \
+    chown -R appuser:appuser /tmp/vfunction/
+
+USER 1500
+
+ENTRYPOINT ["/bin/sh"]
+CMD ["/usr/bin/startup-init.sh"]

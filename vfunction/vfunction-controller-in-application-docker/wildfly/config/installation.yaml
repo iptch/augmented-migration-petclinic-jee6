@@ -1,0 +1,48 @@
+controller:
+  name: JEEPetclinic
+  host: http://172.2.0.4
+  org_id: ce148be7-222e-4bb4-9131-8309ff4dc29e
+  app_id: f6d803b5-a359-4ce0-80d1-f91d4e983450
+  client_id: d7d10d22-af57-43b0-b6fd-8b5c054bd2a7
+  client_secret: 0165f183-e55e-4402-a2aa-ad42be04748b
+
+  instance_id:
+  jolokia_port: 8778
+  instrconf_additions:
+    inclusions:
+#      - a.b.c.
+    exclusions:
+#      - a.b.c.
+
+server_application:
+#  name:
+#  include_classes: com.
+#  allowed_users:
+
+agent:
+  ### Optional application servers: weblogic, websphere85, websphere9, liberty, tomcat, wildfly, payara, jeus, other ###
+  application_server: wildfly
+  ### Indicate the application java version when greater than 8. (optional - default to 8) ###
+  application_java_version:
+  override_properties:
+#    - key=value
+
+viper:
+  port: 8090
+  jvm_memory_params: "-Xms300m -Xmx1g -Xss50m"
+  archives:
+    - /opt/jboss/jboss-as-7.1.1.Final/standalone/deployments/*.war
+#    - /opt/<my-application>/**/*.jar
+#    - /opt/<my-application>/**/*.war
+  ### Supported only for Oracle databases!
+  stored_procedure:
+#    db_url:
+#    db_user:
+#    db_password:
+  spring:
+    custom_context_roots:
+#      - path/to/custom-conf.xml
+#      - another-custom-conf.xml
+    root_bean_classes:
+#      - a.b.c.Foo
+#      - a.b.c.Bar

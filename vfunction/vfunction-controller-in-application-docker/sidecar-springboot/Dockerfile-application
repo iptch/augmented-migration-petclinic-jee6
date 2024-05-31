@@ -1,0 +1,42 @@
+FROM centos:7
+MAINTAINER Raviv Halivni
+
+ARG NAME
+ARG VERSION
+ARG RELEASE
+
+ENV SUMMARY="SpringBoot application wrapper for vFunction Controller."          \
+    DESCRIPTION="SpringBoot application wrapper for vFunction Controller."
+
+LABEL summary="$SUMMARY"                                \
+      description="$DESCRIPTION"                        \
+      io.k8s.description="$DESCRIPTION"                 \
+      name="vfunction/$NAME"                            \
+      vendor="vFunction"                                \
+      version="$VERSION"                                \
+      release="$RELEASE"                                \
+      maintainer="vfunction.com <raviv@vfunction.com>"
+
+RUN yum install java-1.8.0-openjdk bash -y                                                  && \
+    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical       && \
+    adduser -l -u "1500" "appuser"                                                          && \
+    mkdir -p /opt/application/lib
+
+COPY data/application/* /opt/application/lib/
+COPY files/startup-application.sh /usr/bin/startup-application.sh
+COPY files/health-check.sh /usr/bin/health-check.sh
+
+RUN chmod +x /usr/bin/health-check.sh                                                                 && \
+    chmod +x /usr/bin/startup-application.sh                                                          && \
+    chmod -R 777 /usr/bin/                                                                            && \
+    chmod +x /opt/application/lib/*.jar
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=5s --retries=12 \
+      CMD /usr/bin/health-check.sh
+
+USER 1500
+
+ENTRYPOINT ["/bin/sh"]
+CMD ["/usr/bin/startup-application.sh"]

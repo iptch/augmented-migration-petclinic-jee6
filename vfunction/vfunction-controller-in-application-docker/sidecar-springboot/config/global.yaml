@@ -1,0 +1,16 @@
+general:
+#  custom_logs_folder:
+#  custom_sleep_after_service_start:
+#  custom_sleep_after_service_stop:
+
+agent:
+#  use_java_6_or_7_jre: true
+
+controller:
+#  poll_interval_secs: 5
+#  upload_interval_secs: 15
+#  opt_delay_secs: 120
+
+viper:
+#  use_machine_java_for_viper: true
+

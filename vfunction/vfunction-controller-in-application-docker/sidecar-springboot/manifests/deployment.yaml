@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-with-vfunction-controller
+  namespace: vfunction
+  labels:
+    app: application-with-vfunction-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: application-with-vfunction-controller
+  template:
+    metadata:
+      labels:
+        app: application-with-vfunction-controller
+    spec:
+      initContainers:
+        - image: <init-image>
+          imagePullPolicy: IfNotPresent
+          name: init
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1500
+          volumeMounts:
+            - mountPath: /shared/
+              name: shared
+      containers:
+        - name: application
+          image: <application-image>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1500
+          volumeMounts:
+            - mountPath: /shared/
+              name: shared
+        - name: controller
+          image: <controller-image>
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1500
+          volumeMounts:
+            - mountPath: /shared/
+              name: shared
+        - name: viper
+          image: <viper-image>
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1500
+          volumeMounts:
+            - mountPath: /shared/
+              name: shared
+      volumes:
+        - emptyDir: {}
+          name: shared

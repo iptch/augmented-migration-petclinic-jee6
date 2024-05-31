@@ -1,0 +1,34 @@
+FROM centos:7
+MAINTAINER Raviv Halivni
+
+ARG NAME
+ARG VERSION
+ARG RELEASE
+
+ENV SUMMARY="SpringBoot application wrapper for vFunction Controller."          \
+    DESCRIPTION="SpringBoot application wrapper for vFunction Controller."
+
+LABEL summary="$SUMMARY"                                \
+      description="$DESCRIPTION"                        \
+      io.k8s.description="$DESCRIPTION"                 \
+      name="vfunction/$NAME"                            \
+      vendor="vFunction"                                \
+      version="$VERSION"                                \
+      release="$RELEASE"                                \
+      maintainer="vfunction.com <raviv@vfunction.com>"
+
+RUN yum install bash -y                                                                     && \
+    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical       && \
+    adduser -l -u "1500" "appuser"                                                          && \
+    mkdir -p /opt/application/lib
+
+COPY data/application/* /opt/application/lib/
+COPY files/startup-viper.sh /usr/bin/startup-viper.sh
+
+RUN chmod +x /usr/bin/startup-viper.sh                                                      && \
+    chmod -R 777 /usr/bin/ /opt/application/lib/
+
+USER 1500
+
+ENTRYPOINT ["/bin/sh"]
+CMD ["/usr/bin/startup-viper.sh"]

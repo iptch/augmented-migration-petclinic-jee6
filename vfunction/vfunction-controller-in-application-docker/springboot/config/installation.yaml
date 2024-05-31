@@ -1,0 +1,46 @@
+controller:
+  name:
+  host:
+  org_id:
+  app_id:
+  client_id:
+  client_secret:
+  instance_id:
+  jolokia_port: 8778
+  instrconf_additions:
+    inclusions:
+#      - a.b.c.
+    exclusions:
+#      - a.b.c.
+
+server_application:
+#  name:
+#  include_classes: com.
+#  allowed_users:
+
+agent:
+  ### Optional application servers: weblogic, websphere85, websphere9, liberty, tomcat, wildfly, payara, jeus, other ###
+  application_server: other
+  ### Indicate the application java version when greater than 8. (optional - default to 8) ###
+  # application_java_version: 11
+  override_properties:
+#    - key=value
+
+viper:
+  port: 8090
+  archives:
+    - /opt/application/lib/*.jar
+#    - /opt/<my-application>/**/*.jar
+#    - /opt/<my-application>/**/*.war
+  ### Supported only for Oracle databases!
+  stored_procedure:
+#    db_url:
+#    db_user:
+#    db_password:
+  spring:
+    custom_context_roots:
+#      - path/to/custom-conf.xml
+#      - another-custom-conf.xml
+    root_bean_classes:
+#      - a.b.c.Foo
+#      - a.b.c.Bar
