@@ -1,0 +1,212 @@
+openapi: 3.0.1
+info:
+  title: Pet Service API
+  description: API for managing pets and pet types
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+    description: Local server
+
+paths:
+  /pets:
+    get:
+      summary: Get all pets
+      operationId: getPets
+      responses:
+        '200':
+          description: A list of pets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+    post:
+      summary: Create a new pet
+      operationId: createPet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '201':
+          description: Pet created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+
+  /pets/{petId}:
+    get:
+      summary: Get a pet by ID
+      operationId: getPetById
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A pet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Pet not found
+    put:
+      summary: Update a pet by ID
+      operationId: updatePetById
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '200':
+          description: Pet updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Pet not found
+    delete:
+      summary: Delete a pet by ID
+      operationId: deletePetById
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Pet deleted
+        '404':
+          description: Pet not found
+
+  /pet-types:
+    get:
+      summary: Get all pet types
+      operationId: getPetTypes
+      responses:
+        '200':
+          description: A list of pet types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PetType'
+    post:
+      summary: Create a new pet type
+      operationId: createPetType
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetType'
+      responses:
+        '201':
+          description: Pet type created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetType'
+
+  /pet-types/{petTypeId}:
+    get:
+      summary: Get a pet type by ID
+      operationId: getPetTypeById
+      parameters:
+        - name: petTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A pet type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetType'
+        '404':
+          description: Pet type not found
+    put:
+      summary: Update a pet type by ID
+      operationId: updatePetTypeById
+      parameters:
+        - name: petTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetType'
+      responses:
+        '200':
+          description: Pet type updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetType'
+        '404':
+          description: Pet type not found
+    delete:
+      summary: Delete a pet type by ID
+      operationId: deletePetTypeById
+      parameters:
+        - name: petTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Pet type deleted
+        '404':
+          description: Pet type not found
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Buddy"
+        birthDate:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/PetType'
+
+    PetType:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Dog"

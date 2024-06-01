@@ -10,4 +10,5 @@ x*.txt
 *.zip
 *.rpm
 petclinic-jee6/mvnw
+petclinic-jee6/src/main/webapp/dist
 .vscode/settings.json

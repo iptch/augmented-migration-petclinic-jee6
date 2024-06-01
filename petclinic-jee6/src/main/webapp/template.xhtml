@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:rich="http://richfaces.org">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org">
 
 <f:view locale="#{language.localeCode}">
-<f:loadBundle basename="messages" var="msg" />
-<h:head>
-    <title>Petclinic</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- Bootstrap -->
-    <link href="webjars/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="webjars/bootstrap/2.3.2/js/bootstrap.min.js"></script>
-</h:head>
-<h:body>
-<div class="container">
+    <f:loadBundle basename="messages" var="msg" />
+    <h:head>
+        <title>Petclinic</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Bootstrap -->
+        <link href="webjars/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script type="text/javascript" src="webjars/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    </h:head>
+    <h:body>
+        <div class="container">
 
-    <h2><h:outputText value="Java EE 6 Petclinic"/></h2>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a href="./"><i class="icon-home"></i> #{msg.home}</a></li>
-                <li><a href="findOwners.jsf"><i class="icon-search"></i> #{msg.findOwners}</a></li>
-                <li><a href="vets.jsf"><i class="icon-search"></i> #{msg.veterinarians}</a></li>
-                <li><a href="specialties.jsf"><i class="icon-th-list"></i> #{msg.specialties}</a></li>
-                <li><a href="petTypes.jsf"><i class="icon-th-list"></i> #{msg.petTypes}</a></li>
-                <li><a href="#" title="not available yet. Work in progress!!"><i class="icon-question-sign"></i> Help</a></li>
-            </ul>
+            <h2>
+                <h:outputText value="Java EE 6 Petclinic" />
+            </h2>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <ul class="nav">
+                        <li><a href="./"><i class="icon-home"></i> #{msg.home}</a></li>
+                        <li><a href="findOwners.jsf"><i class="icon-search"></i> #{msg.findOwners}</a></li>
+                        <li><a href="vets.jsf"><i class="icon-search"></i> #{msg.veterinarians}</a></li>
+                        <li><a href="specialties.jsf"><i class="icon-th-list"></i> #{msg.specialties}</a></li>
+                        <li><a href="petTypes.jsf"><i class="icon-th-list"></i> #{msg.petTypes}</a></li>
+                        <li><a href="#" title="not available yet. Work in progress!!"><i class="icon-question-sign"></i>
+                                Help</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <ui:insert name="content">Main Content</ui:insert>
+
+            <br />
+            <br />
+            <div style="float: left">
+                &copy; 2014 Thomas W&ouml;hlke
+            </div>
+            <div style="float: right">
+                <h:form>
+                    <i class="icon-exclamation-sign"></i>#{msg.language}:
+                    <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
+                        valueChangeListener="#{language.countryLocaleCodeChanged}">
+                        <f:selectItems value="#{language.countriesInMap}" />
+                    </h:selectOneMenu>
+                </h:form>
+            </div>
         </div>
-    </div>
-
-    <ui:insert name="content">Main Content</ui:insert>
-
-    <br />
-    <br />
-    <div style="float: left">
-    &copy; 2014 Thomas W&ouml;hlke
-    </div>
-    <div  style="float: right">
-        <h:form>
-            <i class="icon-exclamation-sign"></i>#{msg.language}:
-            <h:selectOneMenu value="#{language.localeCode}" onchange="submit()" valueChangeListener="#{language.countryLocaleCodeChanged}">
-                <f:selectItems value="#{language.countriesInMap}" />
-            </h:selectOneMenu>
-        </h:form>
-    </div>
-</div>
-</h:body>
+        <app-root></app-root>
+        <script src="polyfills.js" type="module"></script>
+        <script src="main.js" type="module"></script>
+    </h:body>
 </f:view>
+
 </html>
